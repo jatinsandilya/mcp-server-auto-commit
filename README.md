@@ -4,10 +4,7 @@
 
 ## Demo Video
 
-<video width="100%" controls>
-  <source src="assets/auto_commit_with_ai.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<video width="100%" controls src="https://github.com/jatinsandilya/mcp-server-auto-commit/assets/auto_commit_with_ai.mp4"/>
 
 ## Features
 
