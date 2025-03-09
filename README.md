@@ -1,6 +1,6 @@
 # MCP Server to Auto commit changes  🛠️
 
- This implementation provides a Git changes analyzer that generates commit messages using OpenAI's GPT models.
+This implementation provides a Git changes analyzer that generates commit messages using OpenAI's GPT models.
 
 ## Demo
 
@@ -8,10 +8,15 @@
 
 ## Features
 
-- Analyzes git changes in your repository
-- Generates conventional commit messages using OpenAI
-- Provides detailed summaries of modified, added, and deleted files
+- Analyzes git changes in your repository (both staged and unstaged)
+- Generates conventional commit messages using GPT-4o-mini
+- Provides detailed summaries of:
+  - 📝 Modified files
+  - ✨ Newly added files
+  - 🗑️ Deleted files
+  - 📄 Detailed changes (up to 10 lines per file)
 - Built with [@modelcontextprotocol/sdk](https://docs.anthropic.com/en/docs/agents-and-tools/mcp)
+- Adds an auto-commit signature to each commit
 
 ## Project Structure
 
@@ -28,12 +33,13 @@ mcp-server-auto-commit/
 - Node.js installed
 - OpenAI API key
 - Git repository to analyze
+- pnpm package manager
 
 ## Getting Started
 
-1. Clone this template:
+1. Clone this repository:
 ```bash
-git clone [your-repo-url] my-mcp-server
+git clone https://github.com/jatinsandilya/mcp-server-auto-commit.git
 cd mcp-server-auto-commit
 ```
 
@@ -42,9 +48,10 @@ cd mcp-server-auto-commit
 pnpm install
 ```
 
-3. Set up your OpenAI API key:
-   - Either set it as an environment variable: `OPENAI_API_KEY=your-api-key`
-   - Or prepare to pass it as a command line argument: `--key your-api-key`
+3. Set up your OpenAI API key using one of these methods:
+   - Set as an environment variable: `OPENAI_API_KEY=your-api-key`
+   - Pass as a command line argument: `--key your-api-key`
+   - Add to a `.env` file in the project root
 
 4. Build the project:
 ```bash
@@ -57,7 +64,7 @@ This will generate the `/build/index.js` file - your compiled MCP server script.
 
 1. Go to Cursor Settings -> MCP -> Add new MCP server
 2. Configure your MCP:
-   - Name: git-changes-summary
+   - Name: git-auto-commit
    - Type: command
    - Command: `node ABSOLUTE_PATH_TO_MCP_SERVER/build/index.js --key your-api-key`
    (Replace `your-api-key` with your actual OpenAI API key if not set in environment)
@@ -69,7 +76,7 @@ Add the following MCP config to your Claude Desktop configuration:
 ```json
 {
   "mcpServers": {
-    "git-changes-summary": {
+    "git-auto-commit": {
       "command": "node",
       "args": ["ABSOLUTE_PATH_TO_MCP_SERVER/build/index.js", "--key", "your-api-key"]
     }
@@ -81,16 +88,17 @@ Add the following MCP config to your Claude Desktop configuration:
 
 ### git-changes-commit-message
 
-This tool analyzes the current git changes in your repository and generates a commit message using OpenAI. It provides:
+This tool analyzes the current git changes in your repository and generates a commit message using OpenAI's GPT-4o-mini model. It provides:
 
-- List of modified files
+- List of modified files with status indicators
 - List of newly added files
 - List of deleted files
-- Detailed changes for each file (up to 10 lines per file)
+- Detailed changes for each file (limited to 10 lines per file for readability)
 - A generated commit message following conventional commits format
+- An auto-commit signature
 
 Usage parameters:
-- `input`: Optional path to analyze specific directory/file. If not provided, uses current working directory.
+- `autoCommitPath`: Optional path to analyze specific directory/file. If not provided, uses current working directory.
 
 ## Development
 
@@ -98,16 +106,17 @@ The implementation in `index.ts` showcases:
 
 1. Setting up the MCP server with proper configuration
 2. Handling command line arguments and environment variables
-3. Integrating with OpenAI's API
+3. Integrating with OpenAI's API using GPT-4o-mini model
 4. Git operations using child processes
 5. Error handling and fallback mechanisms
+6. Detailed change analysis and formatting
 
 To modify or extend the implementation:
 
 1. Update the server configuration in `index.ts`:
 ```typescript
 const server = new McpServer({
-  name: "git-changes-summary",
+  name: "git-auto-commit",
   version: "0.0.1",
 });
 ```
