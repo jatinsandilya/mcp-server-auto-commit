@@ -4,7 +4,7 @@
 
 ## Demo Video
 
-<video width="100%" controls src="https://github.com/jatinsandilya/mcp-server-auto-commit/assets/auto_commit_with_ai.mp4"/>
+<video width="100%" controls src="https://github.com/jatinsandilya/mcp-server-auto-commit/assets/auto_commit_with_ai.mp4"></video>
 
 ## Features
 
