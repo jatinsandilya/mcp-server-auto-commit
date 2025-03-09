@@ -31,7 +31,7 @@ const openai = new OpenAI({
 
 // Create server instance
 const server = new McpServer({
-  name: "git-changes-summary",
+  name: "git-auto-commit",
   version: "0.0.1",
 });
 
@@ -111,11 +111,11 @@ server.tool(
   "git-changes-commit-message",
   "Analyzes current git changes and provides a commit message",
   {
-    input: z.string().describe("Optional path to analyze specific directory/file"),
+    autoCommitPath: z.string().describe("Optional path to analyze specific directory/file"),
   },
-  async ({ input }) => {
+  async ({ autoCommitPath }) => {
     try {
-      const changes = await getGitChanges(input);
+      const changes = await getGitChanges(autoCommitPath);
       
       // Create a human-readable summary
       let summary = "Git Changes Summary:\n\n";
@@ -145,6 +145,7 @@ server.tool(
 
       const generatedMessage = await generateCommitMessage(summary);
       const commitMessage = generatedMessage.split('\n').filter(msg => msg.trim().length > 0) || [];
+      commitMessage.push(`🤖 auto-commit by: [mcp-server-auto-commit](https://github.com/jatinsandilya/mcp-server-auto-commit)`);
       return {
         content: [
           {
