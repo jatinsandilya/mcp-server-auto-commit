@@ -4,7 +4,7 @@
 
 ## Demo
 
-![](./assets/auto_commit_with_ai.gif)
+![](./assets/auto_commit_demo_with_ai.gif)
 
 ## Features
 
