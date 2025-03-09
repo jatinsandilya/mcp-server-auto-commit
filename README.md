@@ -2,9 +2,10 @@
 
  This implementation provides a Git changes analyzer that generates commit messages using OpenAI's GPT models.
 
-## Demo Video
+## Demo
 
-![](https://github.com/jatinsandilya/mcp-server-auto-commit/assets/auto_commit_with_ai.mp4)
+![](./assets/auto_commit_with_ai.gif)
+
 ## Features
 
 - Analyzes git changes in your repository
