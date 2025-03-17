@@ -2,6 +2,10 @@
 
 This implementation provides a Git changes analyzer that generates commit messages using OpenAI's GPT models.
 
+<a href="https://glama.ai/mcp/servers/xm2dqoc1s6">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/xm2dqoc1s6/badge" alt="Git Auto Commit Server MCP server" />
+</a>
+
 ## Demo
 
 ![](./assets/auto_commit_demo_with_ai.gif)
